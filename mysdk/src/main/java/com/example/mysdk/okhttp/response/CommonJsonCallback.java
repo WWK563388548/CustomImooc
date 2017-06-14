@@ -90,9 +90,11 @@ public class CommonJsonCallback implements Callback {
 
         try {
             JSONObject result = new JSONObject(responseObj.toString());
+            // 开始解析Json
             if (result.has(RESULT_CODE)) {
                 // 从Json中获取响应码，若为0，则为正确的响应
                 if (result.getInt(RESULT_CODE) == RESULT_CODE_VALUE) {
+                    // 不需要解析，直接返回数据到应用层
                     if (mClass == null) {
                         mListener.onSuccess(responseObj);
                     } else {

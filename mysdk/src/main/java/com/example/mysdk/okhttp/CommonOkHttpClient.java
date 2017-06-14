@@ -1,6 +1,7 @@
 package com.example.mysdk.okhttp;
 
 import com.example.mysdk.okhttp.https.HttpsUtils;
+import com.example.mysdk.okhttp.response.CommonJsonCallback;
 
 import java.util.concurrent.TimeUnit;
 
@@ -8,7 +9,6 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
 import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -56,7 +56,7 @@ public class CommonOkHttpClient {
      * @param commonCallback
      * @return Call
      */
-    public static Call sendRequest(Request request, Callback commonCallback) {
+    public static Call sendRequest(Request request, CommonJsonCallback commonCallback) {
 
         Call call = mOkHttpClient.newCall(request);
         call.enqueue(commonCallback);
