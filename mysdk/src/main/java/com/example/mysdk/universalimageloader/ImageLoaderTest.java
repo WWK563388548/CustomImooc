@@ -11,6 +11,8 @@ public class ImageLoaderTest {
 
     private void testApi() {
 
+
+
         /**
          * 为ImageLoader去配置参数
          * 使用构建者模式，来添加各种各样的属性
@@ -60,5 +62,10 @@ public class ImageLoaderTest {
          //               super.onLoadingFailed(imageUri, view, failReason);
          //           }
          //       });
+
+        /**
+         * 使用自己封装的ImageLoaderManager去加载图片
+         */
+        // ImageLoaderManager.getmInstance(context).displayImage();
     }
 }

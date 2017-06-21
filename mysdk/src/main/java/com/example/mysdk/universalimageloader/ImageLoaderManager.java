@@ -1,7 +1,11 @@
 package com.example.mysdk.universalimageloader;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.widget.ImageView;
 
+import com.example.mysdk.R;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -9,6 +13,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 /**
  * Created by wwk on 17/6/21.
@@ -35,7 +40,7 @@ public class ImageLoaderManager {
     private static ImageLoader mLoader = null;
     private static ImageLoaderManager mInstance = null;
 
-    private static ImageLoaderManager getmInstance(Context context) {
+    public static ImageLoaderManager getmInstance(Context context) {
 
         if (mInstance == null) {
             synchronized (ImageLoaderManager.class) {
@@ -85,8 +90,44 @@ public class ImageLoaderManager {
     private DisplayImageOptions getDefaultOptions() {
 
         DisplayImageOptions options = new DisplayImageOptions.Builder()
+                // 加载的图片为空的时候，加载错误图片
+                .showImageForEmptyUri(R.drawable.xadsdk_img_error)
+                // 下载图片失败的时候，加载错误图片
+                .showImageOnFail(R.drawable.xadsdk_img_error)
+                // 设置图片可以缓存在内存
+                .cacheInMemory(true)
+                // 设置图片可以缓存在硬盘
+                .cacheOnDisk(true)
+                // 设置图片的解码类型
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                // 设置图片的解码配置
+                .decodingOptions(new BitmapFactory.Options())
                 .build();
 
         return options;
+    }
+
+    /**
+     * 加载图片API
+     * @param imageView
+     * @param url
+     * @param options
+     * @param listener
+     */
+    public void displayImage(ImageView imageView, String url, DisplayImageOptions options, ImageLoadingListener listener) {
+
+        if (mLoader != null) {
+            mLoader.displayImage(url, imageView, options, listener);
+        }
+    }
+
+    public void displayImage(ImageView imageView, String url, ImageLoadingListener listener) {
+
+        displayImage(imageView, url, null, listener);
+    }
+
+    public void displayImage(ImageView imageView, String url) {
+
+        displayImage(imageView, url, null);
     }
 }
