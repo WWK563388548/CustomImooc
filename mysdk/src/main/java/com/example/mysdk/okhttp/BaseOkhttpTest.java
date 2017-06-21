@@ -16,7 +16,7 @@ public class BaseOkhttpTest {
                 new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener() {
                     @Override
                     public void onSuccess(Object responseObj) {
-                        
+
                     }
 
                     @Override
